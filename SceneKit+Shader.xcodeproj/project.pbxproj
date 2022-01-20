@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C3C8BA32799676800BA85BE /* box.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9C3C8BA22799676800BA85BE /* box.jpeg */; };
 		9CE01C6F27993A3A00D470B1 /* SceneKit_ShaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C6E27993A3A00D470B1 /* SceneKit_ShaderApp.swift */; };
 		9CE01C7127993A3A00D470B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C7027993A3A00D470B1 /* ContentView.swift */; };
 		9CE01C7327993A3C00D470B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CE01C7227993A3C00D470B1 /* Assets.xcassets */; };
@@ -14,10 +15,10 @@
 		9CE01C7F27993AC000D470B1 /* SegmentaionMaskNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C7E27993AC000D470B1 /* SegmentaionMaskNode.swift */; };
 		9CE01C8127993ADA00D470B1 /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C8027993ADA00D470B1 /* shader.metal */; };
 		9CE01C8327993CC500D470B1 /* SceneKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C8227993CC500D470B1 /* SceneKitView.swift */; };
-		9CE01C8527993FA000D470B1 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CE01C8427993FA000D470B1 /* 1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C3C8BA22799676800BA85BE /* box.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = box.jpeg; sourceTree = "<group>"; };
 		9CE01C6B27993A3A00D470B1 /* SceneKit+Shader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SceneKit+Shader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CE01C6E27993A3A00D470B1 /* SceneKit_ShaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKit_ShaderApp.swift; sourceTree = "<group>"; };
 		9CE01C7027993A3A00D470B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,7 +27,6 @@
 		9CE01C7E27993AC000D470B1 /* SegmentaionMaskNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentaionMaskNode.swift; sourceTree = "<group>"; };
 		9CE01C8027993ADA00D470B1 /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
 		9CE01C8227993CC500D470B1 /* SceneKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitView.swift; sourceTree = "<group>"; };
-		9CE01C8427993FA000D470B1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 		9CE01C6D27993A3A00D470B1 /* SceneKit+Shader */ = {
 			isa = PBXGroup;
 			children = (
-				9CE01C8427993FA000D470B1 /* 1.png */,
+				9C3C8BA22799676800BA85BE /* box.jpeg */,
 				9CE01C6E27993A3A00D470B1 /* SceneKit_ShaderApp.swift */,
 				9CE01C7027993A3A00D470B1 /* ContentView.swift */,
 				9CE01C8227993CC500D470B1 /* SceneKitView.swift */,
@@ -146,7 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CE01C7627993A3C00D470B1 /* Preview Assets.xcassets in Resources */,
-				9CE01C8527993FA000D470B1 /* 1.png in Resources */,
+				9C3C8BA32799676800BA85BE /* box.jpeg in Resources */,
 				9CE01C7327993A3C00D470B1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

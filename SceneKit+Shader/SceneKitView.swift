@@ -14,7 +14,7 @@ struct SceneView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView()
-        
+
         scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true
@@ -43,32 +43,29 @@ struct SceneView: UIViewRepresentable {
 
         let box = SCNBox(width: 0.5, height: 0.5,
                          length: 0.5, chamferRadius: 0)
-        
+
         let program = SCNProgram()
         program.vertexFunctionName = "textureSamplerVertex"
         program.fragmentFunctionName = "textureSamplerFragment"
-        box.program = program
+        box.firstMaterial!.program = program
 
-        let filePath = Bundle.main.url(forResource: "1", withExtension: "png")!
-        let filePath2 = Bundle.main.path(forResource: "1", ofType: "png")!
-//        let textureLoader = MTKTextureLoader(device: scnView.device!)
-//        let options: [MTKTextureLoader.Option:Any] = [
-//            .generateMipmaps : true,
-//            .SRGB: true,
-//        ]
-//        let texture: MTLTexture
-//        = try! textureLoader.newTexture(URL: filePath,
-//                                       options: options)
-//        let property = SCNMaterialProperty(contents: texture)
-        let image = UIImage(contentsOfFile: filePath2)!
-        let imageProperty = SCNMaterialProperty(contents: image)
-        box.firstMaterial?.setValue(imageProperty, forKey: "customTexture")
-        
+        let filePath = Bundle.main.url(forResource: "box", withExtension: "jpeg")!
+        let textureLoader = MTKTextureLoader(device: scnView.device!)
+        let options: [MTKTextureLoader.Option: Any] = [
+            .generateMipmaps: true,
+            .SRGB: true,
+        ]
+        let texture: MTLTexture
+            = try! textureLoader.newTexture(URL: filePath,
+                                            options: options)
+        let imageProperty = SCNMaterialProperty(contents: texture)
+        box.firstMaterial!.setValue(imageProperty, forKey: "customTexture")
+
         let boxNode = SCNNode(geometry: box)
         root.addChildNode(boxNode)
-        
-        let renderer = Renderer(scnView)
-        //boxNode.rendererDelegate = renderer
+
+//        let renderer = Renderer(scnView)
+//        boxNode.rendererDelegate = renderer
 
         cameraController.target = SCNVector3Make(0, 0, 0)
 
