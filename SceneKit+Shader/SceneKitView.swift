@@ -23,8 +23,6 @@ struct SceneView: UIViewRepresentable {
         let cameraController = scnView.defaultCameraController
 
         let scene = SCNScene()
-        scnView.scene = scene
-
         let root = scene.rootNode
 
         let otherbox1 = SCNBox(width: 0.5, height: 0.5,
@@ -41,33 +39,16 @@ struct SceneView: UIViewRepresentable {
         otherboxNode2.position = SCNVector3Make(1, 0, 0)
         root.addChildNode(otherboxNode2)
 
-        let box = SCNBox(width: 0.5, height: 0.5,
-                         length: 0.5, chamferRadius: 0)
-
-        let program = SCNProgram()
-        program.vertexFunctionName = "textureSamplerVertex"
-        program.fragmentFunctionName = "textureSamplerFragment"
-        box.firstMaterial!.program = program
-
-        let filePath = Bundle.main.url(forResource: "box", withExtension: "jpeg")!
-        let textureLoader = MTKTextureLoader(device: scnView.device!)
-        let options: [MTKTextureLoader.Option: Any] = [
-            .generateMipmaps: true,
-            .SRGB: true,
-        ]
-        let texture: MTLTexture
-            = try! textureLoader.newTexture(URL: filePath,
-                                            options: options)
-        let imageProperty = SCNMaterialProperty(contents: texture)
-        box.firstMaterial!.setValue(imageProperty, forKey: "customTexture")
-
-        let boxNode = SCNNode(geometry: box)
-        root.addChildNode(boxNode)
-
-//        let renderer = Renderer(scnView)
-//        boxNode.rendererDelegate = renderer
+        Task {
+            let node = await TexturedBox(scnView)
+            node.renderingOrder = 2 // rendering order should be different
+            root.addChildNode(node)
+            await MainActor.run { scnView.draw(scnView.frame) }
+        }
 
         cameraController.target = SCNVector3Make(0, 0, 0)
+
+        scnView.scene = scene
 
         return scnView
     }

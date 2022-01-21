@@ -8,23 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		9C3C8BA32799676800BA85BE /* box.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9C3C8BA22799676800BA85BE /* box.jpeg */; };
+		9CAE5774279A462D004E2D98 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAE5773279A462D004E2D98 /* Type.swift */; };
+		9CAE5780279A9D5B004E2D98 /* SCNGeometryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAE577F279A9D5B004E2D98 /* SCNGeometryExtension.swift */; };
 		9CE01C6F27993A3A00D470B1 /* SceneKit_ShaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C6E27993A3A00D470B1 /* SceneKit_ShaderApp.swift */; };
 		9CE01C7127993A3A00D470B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C7027993A3A00D470B1 /* ContentView.swift */; };
 		9CE01C7327993A3C00D470B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CE01C7227993A3C00D470B1 /* Assets.xcassets */; };
 		9CE01C7627993A3C00D470B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CE01C7527993A3C00D470B1 /* Preview Assets.xcassets */; };
-		9CE01C7F27993AC000D470B1 /* SegmentaionMaskNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C7E27993AC000D470B1 /* SegmentaionMaskNode.swift */; };
+		9CE01C7F27993AC000D470B1 /* TexturedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C7E27993AC000D470B1 /* TexturedBox.swift */; };
 		9CE01C8127993ADA00D470B1 /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C8027993ADA00D470B1 /* shader.metal */; };
 		9CE01C8327993CC500D470B1 /* SceneKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE01C8227993CC500D470B1 /* SceneKitView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9C3C8BA22799676800BA85BE /* box.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = box.jpeg; sourceTree = "<group>"; };
+		9CAE5773279A462D004E2D98 /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
+		9CAE577F279A9D5B004E2D98 /* SCNGeometryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNGeometryExtension.swift; sourceTree = "<group>"; };
 		9CE01C6B27993A3A00D470B1 /* SceneKit+Shader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SceneKit+Shader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CE01C6E27993A3A00D470B1 /* SceneKit_ShaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKit_ShaderApp.swift; sourceTree = "<group>"; };
 		9CE01C7027993A3A00D470B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9CE01C7227993A3C00D470B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CE01C7527993A3C00D470B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9CE01C7E27993AC000D470B1 /* SegmentaionMaskNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentaionMaskNode.swift; sourceTree = "<group>"; };
+		9CE01C7E27993AC000D470B1 /* TexturedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TexturedBox.swift; sourceTree = "<group>"; };
 		9CE01C8027993ADA00D470B1 /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
 		9CE01C8227993CC500D470B1 /* SceneKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +67,7 @@
 				9CE01C6E27993A3A00D470B1 /* SceneKit_ShaderApp.swift */,
 				9CE01C7027993A3A00D470B1 /* ContentView.swift */,
 				9CE01C8227993CC500D470B1 /* SceneKitView.swift */,
-				9CE01C7D27993A8300D470B1 /* New Group */,
+				9CE01C7D27993A8300D470B1 /* Helper */,
 				9CE01C7227993A3C00D470B1 /* Assets.xcassets */,
 				9CE01C7427993A3C00D470B1 /* Preview Content */,
 			);
@@ -78,13 +82,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		9CE01C7D27993A8300D470B1 /* New Group */ = {
+		9CE01C7D27993A8300D470B1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				9CE01C7E27993AC000D470B1 /* SegmentaionMaskNode.swift */,
+				9CE01C7E27993AC000D470B1 /* TexturedBox.swift */,
 				9CE01C8027993ADA00D470B1 /* shader.metal */,
+				9CAE5773279A462D004E2D98 /* Type.swift */,
+				9CAE577F279A9D5B004E2D98 /* SCNGeometryExtension.swift */,
 			);
-			path = "New Group";
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,10 +165,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CE01C8127993ADA00D470B1 /* shader.metal in Sources */,
-				9CE01C7F27993AC000D470B1 /* SegmentaionMaskNode.swift in Sources */,
+				9CE01C7F27993AC000D470B1 /* TexturedBox.swift in Sources */,
 				9CE01C7127993A3A00D470B1 /* ContentView.swift in Sources */,
 				9CE01C6F27993A3A00D470B1 /* SceneKit_ShaderApp.swift in Sources */,
 				9CE01C8327993CC500D470B1 /* SceneKitView.swift in Sources */,
+				9CAE5780279A9D5B004E2D98 /* SCNGeometryExtension.swift in Sources */,
+				9CAE5774279A462D004E2D98 /* Type.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
