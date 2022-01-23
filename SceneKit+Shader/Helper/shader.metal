@@ -7,6 +7,7 @@ struct NodeBuffer {
     float4x4 modelViewTransform;
     float4x4 normalTransform;
     float2x3 boundingBox;
+    float depthBufferZ;
 };
 
 struct VertexInput {
@@ -18,6 +19,11 @@ struct VertexInput {
 struct VertexOut {
     float4 position [[position]];
     float2 uv;
+}; // = FragmentIn
+
+struct FragmentOut {
+    float4 color [[color(0)]];
+    float depth [[depth(any)]];
 };
 
 vertex VertexOut textureSamplerVertex
@@ -32,12 +38,16 @@ vertex VertexOut textureSamplerVertex
     return out;
 }
 
-fragment float4 textureSamplerFragment
+fragment FragmentOut textureSamplerFragment
 (
- VertexOut out [[ stage_in ]],
- texture2d<float, access::sample> customTexture [[texture(0)]]
+ VertexOut in [[ stage_in ]],
+ texture2d<float, access::sample> customTexture [[texture(0)]],
+ constant NodeBuffer& node [[buffer(1)]]
 )
 {
+    FragmentOut out;
     constexpr sampler textureSampler(coord::normalized, filter::linear, address::repeat);
-    return customTexture.sample(textureSampler, out.uv );
+    out.color = customTexture.sample(textureSampler, in.uv );
+    out.depth = node.depthBufferZ;
+    return out;
 }

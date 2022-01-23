@@ -8,6 +8,7 @@ public class TexturedBox: SCNNode {
         var modelViewTransform = float4x4()
         var normalTransform = float4x4()
         var boundingBox = float2x3()
+        var depthBufferZ: Float = 0
     }
     
     struct VertexIn: sizeable {
@@ -17,7 +18,7 @@ public class TexturedBox: SCNNode {
     }
     
     private var renderTexturePipelineState: MTLRenderPipelineState?
-    private var depthState: MTLDepthStencilState?
+    private var depthState: MTLDepthStencilState!
     
     var texture: MTLTexture!
     let box = SCNBox(width: 0.5, height: 0.5, length: 0.5, chamferRadius: 0)
@@ -31,7 +32,7 @@ public class TexturedBox: SCNNode {
         super.init()
         
         try? // need time to set right SCNGeometry vertices
-            await Task.sleep(nanoseconds: 1_000_000_000)
+            await Task.sleep(nanoseconds: 100_000_000)
         
         rendererDelegate = self
         
@@ -110,12 +111,15 @@ public class TexturedBox: SCNNode {
                                         options: [])
     }
     
-    private func updateNodeMatrix(_ camNode: SCNNode, _ viewport: CGRect) {
+    private func updateNodeMatrix(_ camNode: SCNNode,
+                                  _ viewport: CGRect,
+                                  _ useReverseZ: Bool)
+    {
         guard let camera = camNode.camera else {
             return
         }
         
-        let modelMatrix = transform
+        let modelMatrix = worldTransform
         let viewMatrix = SCNMatrix4Invert(camNode.transform)
         let projectionMatrix
             = camera.projectionTransform(withViewportSize: viewport.size)
@@ -123,6 +127,27 @@ public class TexturedBox: SCNNode {
         let viewProjection = SCNMatrix4Mult(viewMatrix, projectionMatrix)
         let modelViewProjection = SCNMatrix4Mult(modelMatrix, viewProjection)
         nodeMatrix.modelViewProjectionTransform = float4x4(modelViewProjection)
+        
+        let distance = camNode.position.distance(worldPosition)
+        let z = calculateFragmentDepth(usingCamera: camera,
+                                       distanceToTarget: distance,
+                                       usesReverseZ: useReverseZ)
+        nodeMatrix.depthBufferZ = z
+    }
+    
+    // Calculate the z buffer value so we can use it in the fragment shader.
+    // For the sake of occulsion, we need to write this value into the depth buffer.
+    // This will happen in the fragment shader.
+    private func calculateFragmentDepth(usingCamera camera: SCNCamera, distanceToTarget: Float, usesReverseZ: Bool) -> Float {
+        // SceneKit uses a reverse z buffer since iOS 13. In case it uses a reverse buffer.
+        // We'll need to swap the near and far planes.
+        let zFar = usesReverseZ ? camera.zNear : camera.zFar
+        let zNear = usesReverseZ ? camera.zFar : camera.zNear
+        let range = 2.0 * zNear * zFar
+        // The depth value in in normalized device coordinates [-1, 1].
+        let fragmentDepth = (zFar + zNear - range / Double(distanceToTarget)) / (zFar - zNear)
+        // Convert to normalized coordinates [0, 1].
+        return Float((fragmentDepth + 1.0) / 2.0)
     }
     
     private func loadTextures(device: MTLDevice) {
@@ -153,7 +178,7 @@ extension TexturedBox: SCNNodeRendererDelegate {
               let texture = texture
         else { return }
         
-        updateNodeMatrix(camNode, renderer.currentViewport)
+        updateNodeMatrix(camNode, renderer.currentViewport, renderer.usesReverseZ)
         guard let nodeBuffer
             = renderer.device?.makeBuffer(bytes: &nodeMatrix,
                                           length: NodeMatrix.stride,
@@ -165,6 +190,7 @@ extension TexturedBox: SCNNodeRendererDelegate {
         renderCommandEncoder.setFragmentTexture(texture, index: 0)
         renderCommandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderCommandEncoder.setVertexBuffer(nodeBuffer, offset: 0, index: 1)
+        renderCommandEncoder.setFragmentBuffer(nodeBuffer, offset: 0, index: 1)
         renderCommandEncoder.drawIndexedPrimitives(type: .triangle,
                                                    indexCount: indexCount,
                                                    indexType: .uint16,

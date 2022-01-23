@@ -43,6 +43,7 @@ struct SceneView: UIViewRepresentable {
             let node = await TexturedBox(scnView)
             node.renderingOrder = 2 // rendering order should be different
             root.addChildNode(node)
+            node.position = SCNVector3Make(0, 0.5, -1.5)
             await MainActor.run { scnView.draw(scnView.frame) }
         }
 
