@@ -84,7 +84,7 @@ public class TexturedBox: SCNNode {
         return vertexDescriptor
     }
     
-    private func setVertexBuffer(device: MTLDevice) {
+    private func setVertexBuffer(device: MTLDevice) { // just set vertices and uvs
         let vertices = box.vertices()!
         let uvs = box.uvs()!
         
@@ -114,7 +114,7 @@ public class TexturedBox: SCNNode {
     private func updateNodeMatrix(_ camNode: SCNNode,
                                   _ viewport: CGRect,
                                   _ useReverseZ: Bool)
-    {
+    { // just set modelviewprojection transform and depth buffer z
         guard let camera = camNode.camera else {
             return
         }
